@@ -1,3 +1,23 @@
+/// The Writer module
+///
+/// This module contains the Writer function, which allows for the
+/// customization of text styling in the terminal.
+///
+/// ```motoko
+/// import Writer from "mo:color/Writer";
+/// import TextStyle from "mo:color/TextStyle";
+///
+/// let { backgroundColor; textColor } = TextStyle;
+///
+/// let writer = Writer.Writer();
+///
+/// writer
+/// .text("hello world")
+/// .textColor(textColor.black)
+/// .backgroundColor(backgroundColor.white)
+/// .bold(true)
+/// .print();
+/// ```
 import Text "mo:base/Text";
 import TextStyle "./TextStyle";
 import Debug "mo:base/Debug";
@@ -5,7 +25,8 @@ import Nat8 "mo:base/Nat8";
 import Bool "mo:base/Bool";
 
 module {
-  type TextSettings = {
+  /// All of the text styles that can be manipulated
+  public type TextSettings = {
     text: Text;
     textColor: Text;
     backgroundColor: Text;
@@ -14,7 +35,46 @@ module {
     underline: Text;
   };
 
-  type TextStyleFunctor = {
+  /// Object type that the Writer() function produces, contains all
+  /// setter and read/print methods, and holds the internal settings
+  /// state. 
+  ///
+  /// This state is currently not directly readable, but can
+  /// be manipulated via setter methods like `text()`, `textColor()`,
+  /// `italicize()`, etc.
+  ///
+  /// Note: Nested function signatures are currently not picked up by mo-doc, so the below is
+  /// a more spaced out, readable version of the API
+  ///
+  /// Setter methods:
+  /// 
+  /// `textColor: (color: Text) -> TextStyleFunctor;`  
+  /// 
+  /// `textColorRGB: (r: Nat8, g: Nat8, b: Nat8) -> TextStyleFunctor;`  
+  /// 
+  /// `backgroundColor: (color: Text) -> TextStyleFunctor;`  
+  /// 
+  /// `backgroundColorRGB: (r: Nat8, g: Nat8, b: Nat8) -> TextStyleFunctor;`  
+  /// 
+  /// `text: (t: Text) -> TextStyleFunctor;`  
+  /// 
+  /// `bold: (isBold: Bool) -> TextStyleFunctor;`  
+  /// 
+  /// `italicize: (isItalicize: Bool) -> TextStyleFunctor;`  
+  /// 
+  /// `underline: (isUnderline: Bool) -> TextStyleFunctor;`  
+  /// 
+  ///
+  /// 
+  /// Accessor methods:
+  /// 
+  /// `read: () -> Text; // returns the formatted and styled text`  
+  ///
+  /// `readDebug: () -> Text; // returns the internal representation of that text: escape code + SGR styling codes + text + reset & suffix escape code`  
+  ///
+  /// `print: () -> () // prints the result of read() to the console` 
+  /// 
+  public type TextStyleFunctor = {
     textColor: (color: Text) -> TextStyleFunctor;
     textColorRGB: (r: Nat8, g: Nat8, b: Nat8) -> TextStyleFunctor;
     backgroundColor: (color: Text) -> TextStyleFunctor;
@@ -41,7 +101,7 @@ module {
     return functor(defaultSettings);
   };
 
-  func functor(newSettings: TextSettings): TextStyleFunctor {
+  public func functor(newSettings: TextSettings): TextStyleFunctor {
     func toRGBText(r: Nat8, g: Nat8, b: Nat8): Text {
       ";" # Nat8.toText(r) 
       # ";" # Nat8.toText(g)

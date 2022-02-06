@@ -1,76 +1,89 @@
-# motoko-library-template
+# motoko-color
 
-A template for making a Motoko Library.
+A library for styling your terminal in Motoko!
 
-Make sure to set the "Include all branches" checkbox in the creation
-dialog. After you've created a copy follow the Checklist section in
-the README.
+<br/>
+<br/>
+<br/>
 
-## Features
+## Getting started
+<br/>
 
-- Build & Test development workflow
-- CI Setup
-- Automatic Documentation generation for GitHub Pages
+Easy to use, expressive API:
+```motoko
+import Writer from "mo:color/Writer";
+import TextStyle from "mo:color/TextStyle";
 
-## How to develop
+let { backgroundColor; textColor } = TextStyle;
 
-- Write your library code in `*.mo` source files in the `src/` directory.
-- Run `make check` to make sure your changes compile (or use the
-  VSCode extension to get quicker feedback)
-- Add tests to the source files in the `test/` directory, and run them
-  with `make test`. The project template is set up to include
-  motoko-matchers.
-- Generate API documentation locally by running `make docs` and then
-  open the resulting `docs/index.html` in your browser
+let writer = Writer.Writer();
 
-## How to publish
+writer
+  .text("hello world")
+  .textColor(textColor.black)
+  .backgroundColor(backgroundColor.white)
+  .bold(true)
+  .print();
+```
 
-- Create a git tag for the commit you'd like to be the published
-  version. For example:
-  ```bash
-  git tag v1.1.0
-  git push origin v1.1.0
-  ```
-- Follow the instructions at
-  [`vessel-package-set`](https://github.com/dfinity/vessel-package-set)
-  to make it easy for other to install your library
+Chain multiple colors on the same line:
+```motoko
+...
+import Debug "mo:base/Debug";
 
+Debug.log(
+  writer
+    .text("It's easy being green")
+    .textColor(textColor.green)
+    .read()
+  # ", however... " #
+  writer
+    .text("I really love purple backgrounds!")
+    .backgroundColor(backgroundColor.purple)
+    .read()
+);
+```
+      
+Use RGB colors for the text or background:
+```motoko
+writer
+  .text("woah dude, RGB!")
+  .textColorRGB(20,40,60)
+  .backgroundColorRGB(180,200,220)
+  .print();
+```
 
-## Checklist
+Immutable text styling settings, so use it all over the place, and don't worry about overwriting a bound setting.
+```motoko
+let greenCheckMark = writer
+  .text("✓")
+  .textColor(textColor.green)
+  .backgroundColor(backgroundColor.white);
+let redCheckMark = greenCheckMark
+  .textColor(textColor.red);
 
-### Check the initial setup works
-- [ ] Make sure you've installed [`vessel`](https://github.com/dfinity/vessel)
-- [ ] Make sure you've installed [`wasmtime`](https://wasmtime.dev/)
-- [ ] Make sure `make all` runs succesfully. If it doesn't please [open an issue](https://github.com/kritzcreek/motoko-library-template)
+greenCheckMark.print();
+redCheckMark.print();
+```
+<br/>
 
-### Licensing
-- [ ] This template comes with a copy of the Apache License Version
-      2.0, if you'd like to use a different license, replace the
-      LICENSE file.
-- [ ] Change the License section in the README to reference your
-      libraries name
+## Documentation
 
-### Host library documentation on Github Pages
+Further documentation for the latest release can be found at [https:byronbecker.github.io/motoko-color](https:byronbecker.github.io/motoko-color).
 
-If you'd like to automatically build and host library documentation
-whenever you push a git tag, follow these steps. Otherwise delete
-`.github/workflows/release.yml`, the `gh-pages` branch, and the API Documentation section in the README.
+If you'd like to generate documentation locally run $(vessel bin)/mo-doc && firefox docs/index.html
+<br/>
+<br/>
+<br/>
+<br/>
 
-- [ ] Turn on [Github Pages](https://pages.github.com/) in the Settings for your repo under:
-      `Settings -> GitHub Pages -> Source -> Pick the "gh-pages" branch`
-- [ ] Change the Url in the `API Documentation` section in your project
-
-### Finishing touches
-- [ ] Check out the "How to develop" and "How to publish" sections in the
-      README and finally delete the Checklist section from the
-      README
-
-## API Documentation
-
-API documentation for this library can be found at (CHANGE ME) https://kritzcreek.github.io/motoko-library-template
+## Credits
+Credits to [Christopher Hegemann](https://github.com/kritzcreek) for [motoko-library-template](https://github.com/kritzcreek/motoko-library-template) that helped jumpstart this library
+<br/>
+<br/>
 
 ## License
 
-motoko-library-template is distributed under the terms of the Apache License (Version 2.0).
+motoko-color is distributed under the terms of the Apache License (Version 2.0).
 
 See LICENSE for details.

@@ -1,7 +1,23 @@
+/// Static text stylings
+///
+/// This module contains static text style constants which can be passed to 
+/// methods of Writer to customize text styling
 import HashMap "mo:base/HashMap";
 import Bool "mo:base/Bool";
 
 module TextStyle {
+  /// Record of color name to ANSI SGR background color code
+  ///
+  /// Available Colors:
+  /// - black
+  /// - red
+  /// - green
+  /// - yellow
+  /// - blue
+  /// - purple
+  /// - lightblue
+  /// - white
+  /// - transparent
   public let backgroundColor = {
     black       = "40";
     red         = "41";
@@ -14,6 +30,18 @@ module TextStyle {
     transparent = "";
   };
 
+  /// Record of color name to ANSI SGR foreground color code
+  ///
+  /// Available Colors:
+  /// - black
+  /// - red
+  /// - green
+  /// - yellow
+  /// - blue
+  /// - purple
+  /// - lightblue
+  /// - white
+  /// - grey 
   public let textColor = {
     black       = "30";
     red         = "31";
