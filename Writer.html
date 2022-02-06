@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html><head title="Doc"><meta charset="UTF-8"/><link href="styles.css" rel="stylesheet"/></head><body><nav class="sidebar"><h3>Modules</h3><ul><li><li><a href="TextStyle.html">TextStyle</a></li></li><li><li><a href="Writer.html">Writer</a></li></li></ul><h3>Declarations</h3><ul><li><li><a href="#type.TextSettings">TextSettings</a></li></li><li><li><a href="#type.TextStyleFunctor">TextStyleFunctor</a></li></li><li><li><a href="#Writer">Writer</a></li></li><li><li><a href="#functor">functor</a></li></li></ul></nav><div class="documentation"><h1>Writer</h1><p>The Writer module</p>
+<p>This module contains the Writer function, which allows for the
+customization of text styling in the terminal.</p>
+<pre class="motoko"><code class="motoko">import Writer from &quot;mo:color/Writer&quot;;
+import TextStyle from &quot;mo:color/TextStyle&quot;;
+
+let { backgroundColor; textColor } = TextStyle;
+
+let writer = Writer.Writer();
+
+writer
+.text(&quot;hello world&quot;)
+.textColor(textColor.black)
+.backgroundColor(backgroundColor.white)
+.bold(true)
+.print();</code></pre><div class="declaration"><h4 class="type-declaration" id="type.TextSettings"><span class="keyword">type </span><span class="type">TextSettings</span> = { text : <span class="type">Text</span>; textColor : <span class="type">Text</span>; backgroundColor : <span class="type">Text</span>; bold : <span class="type">Text</span>; italicize : <span class="type">Text</span>; underline : <span class="type">Text</span> }</h4><p><p>All of the text styles that can be manipulated</p>
+</p></div><div class="declaration"><h4 class="type-declaration" id="type.TextStyleFunctor"><span class="keyword">type </span><span class="type">TextStyleFunctor</span> = { textColor : (<span class="parameter">color</span> : <span class="type">Text</span>) -&gt; <a href="#type.TextStyleFunctor"><span class="type">TextStyleFunctor</span></a>; textColorRGB : (<span class="parameter">r</span> : <span class="type">Nat8</span>, <span class="parameter">g</span> : <span class="type">Nat8</span>, <span class="parameter">b</span> : <span class="type">Nat8</span>) -&gt; <a href="#type.TextStyleFunctor"><span class="type">TextStyleFunctor</span></a>; backgroundColor : (<span class="parameter">color</span> : <span class="type">Text</span>) -&gt; <a href="#type.TextStyleFunctor"><span class="type">TextStyleFunctor</span></a>; backgroundColorRGB : (<span class="parameter">r</span> : <span class="type">Nat8</span>, <span class="parameter">g</span> : <span class="type">Nat8</span>, <span class="parameter">b</span> : <span class="type">Nat8</span>) -&gt; <a href="#type.TextStyleFunctor"><span class="type">TextStyleFunctor</span></a>; text : (<span class="parameter">t</span> : <span class="type">Text</span>) -&gt; <a href="#type.TextStyleFunctor"><span class="type">TextStyleFunctor</span></a>; bold : (<span class="parameter">isBold</span> : <span class="type">Bool</span>) -&gt; <a href="#type.TextStyleFunctor"><span class="type">TextStyleFunctor</span></a>; italicize : (<span class="parameter">isItalicize</span> : <span class="type">Bool</span>) -&gt; <a href="#type.TextStyleFunctor"><span class="type">TextStyleFunctor</span></a>; underline : (<span class="parameter">isUnderline</span> : <span class="type">Bool</span>) -&gt; <a href="#type.TextStyleFunctor"><span class="type">TextStyleFunctor</span></a>; read : () -&gt; <span class="type">Text</span>; readDebug : () -&gt; <span class="type">Text</span>; print : () -&gt; () }</h4><p><p>Object type that the Writer() function produces, contains all
+setter and read/print methods, and holds the internal settings
+state.</p>
+<p>This state is currently not directly readable, but can
+be manipulated via setter methods like <code>text()</code>, <code>textColor()</code>,
+<code>italicize()</code>, etc.</p>
+<p>Note: Nested function signatures are currently not picked up by mo-doc, so the below is
+a more spaced out, readable version of the API</p>
+<p>Setter methods:</p>
+<p><code>textColor: (color: Text) -&gt; TextStyleFunctor;</code></p>
+<p><code>textColorRGB: (r: Nat8, g: Nat8, b: Nat8) -&gt; TextStyleFunctor;</code></p>
+<p><code>backgroundColor: (color: Text) -&gt; TextStyleFunctor;</code></p>
+<p><code>backgroundColorRGB: (r: Nat8, g: Nat8, b: Nat8) -&gt; TextStyleFunctor;</code></p>
+<p><code>text: (t: Text) -&gt; TextStyleFunctor;</code></p>
+<p><code>bold: (isBold: Bool) -&gt; TextStyleFunctor;</code></p>
+<p><code>italicize: (isItalicize: Bool) -&gt; TextStyleFunctor;</code></p>
+<p><code>underline: (isUnderline: Bool) -&gt; TextStyleFunctor;</code></p>
+<p>Accessor methods:</p>
+<p><code>read: () -&gt; Text; // returns the formatted and styled text</code></p>
+<p><code>readDebug: () -&gt; Text; // returns the internal representation of that text: escape code + SGR styling codes + text + reset &amp; suffix escape code</code></p>
+<p><code>print: () -&gt; () // prints the result of read() to the console</code></p>
+</p></div><div class="declaration"><h4 class="function" id="Writer"><code><span class="keyword">public func </span><span class="fnname">Writer</span>() : <a href="#type.TextStyleFunctor"><span class="type">TextStyleFunctor</span></a></code></h4><p></p></div><div class="declaration"><h4 class="function" id="functor"><code><span class="keyword">public func </span><span class="fnname">functor</span>(<span class="parameter">newSettings</span> : <a href="#type.TextSettings"><span class="type">TextSettings</span></a>) : <a href="#type.TextStyleFunctor"><span class="type">TextStyleFunctor</span></a></code></h4><p></p></div></div></body></html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html><head title="Motoko docs"><meta charset="UTF-8"/><link href="styles.css" rel="stylesheet"/></head><div class="index-container"><h1 class="index-header">Index of modules</h1><ul class="index-listing"><li class="index-item"><a class="index-item-link" href="TextStyle.html">TextStyle</a><div class="index-item-comment"><p>Static text stylings</p>
+<p>This module contains static text style constants which can be passed to 
+methods of Writer to customize text styling</p>
+</div></li><li class="index-item"><a class="index-item-link" href="Writer.html">Writer</a><div class="index-item-comment"><p>The Writer module</p>
+<p>This module contains the Writer function, which allows for the
+customization of text styling in the terminal.</p>
+<pre class="motoko"><code class="motoko">import Writer from &quot;mo:color/Writer&quot;;
+import TextStyle from &quot;mo:color/TextStyle&quot;;
+
+let { backgroundColor; textColor } = TextStyle;
+
+let writer = Writer.Writer();
+
+writer
+.text(&quot;hello world&quot;)
+.textColor(textColor.black)
+.backgroundColor(backgroundColor.white)
+.bold(true)
+.print();</code></pre></div></li></ul></div></html>
