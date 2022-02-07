@@ -74,6 +74,13 @@ Further documentation for the latest release can be found at [https:byronbecker.
 If you'd like to generate documentation locally run $(vessel bin)/mo-doc && firefox docs/index.html
 <br/>
 <br/>
+
+## Example
+See the [example folder](https://github.com/ByronBecker/motoko-color/tree/main/example) for usage,
+making sure that both [vessel](https://github.com/dfinity/vessel) and [wasmtime](https://wasmtime.dev/) are installed before running `make run-example` from the root directory.
+
+<br/>
+<br/>
 <br/>
 <br/>
 
