@@ -69,7 +69,7 @@ redCheckMark.print();
 
 ## Documentation
 
-Further documentation for the latest release can be found at [https:byronbecker.github.io/motoko-color](https:byronbecker.github.io/motoko-color).
+Further documentation for the latest release can be found at [https://byronbecker.github.io/motoko-color](https://byronbecker.github.io/motoko-color).
 
 If you'd like to generate documentation locally run $(vessel bin)/mo-doc && firefox docs/index.html
 <br/>
