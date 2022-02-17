@@ -2,6 +2,7 @@
 
 A library for styling your terminal in Motoko!
 
+![Example image](./readme_example_image.png)
 <br/>
 <br/>
 <br/>
