@@ -4,8 +4,8 @@
 /// customization of text styling in the terminal.
 ///
 /// ```motoko
-/// import Writer from "mo:color/Writer";
-/// import TextStyle from "mo:color/TextStyle";
+/// import Writer "mo:color/Writer";
+/// import TextStyle "mo:color/TextStyle";
 ///
 /// let { backgroundColor; textColor } = TextStyle;
 ///
@@ -55,9 +55,13 @@ module {
   /// 
   /// `textColorRGB: (r: Nat8, g: Nat8, b: Nat8) -> TextStyleFunctor;`  
   /// 
+  /// `textColorHex: (hex: Text) -> TextStyleFunctor;`  
+  /// 
   /// `backgroundColor: (color: Text) -> TextStyleFunctor;`  
   /// 
   /// `backgroundColorRGB: (r: Nat8, g: Nat8, b: Nat8) -> TextStyleFunctor;`  
+  /// 
+  /// `backgroundColorHex: (hex: Text) -> TextStyleFunctor;`  
   /// 
   /// `text: (t: Text) -> TextStyleFunctor;`  
   /// 
@@ -156,7 +160,7 @@ module {
       public func textColorHex(hex: Text): TextStyleFunctor { 
         switch (hexToRGB(hex)){
           case (?(r,g,b)){ textColorRGB(r, g, b) };
-          case (_){ functor(settings) };
+          case (_){ functor(settings) }; // ignores method if hex is invalid
         };
       };
 
@@ -187,7 +191,7 @@ module {
       public func backgroundColorHex(hex: Text): TextStyleFunctor { 
         switch (hexToRGB(hex)){
           case (?(r,g,b)){ backgroundColorRGB(r, g, b) };
-          case (_){ functor(settings) };
+          case (_){ functor(settings) }; 
         };
       };
 

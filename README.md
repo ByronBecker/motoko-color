@@ -12,8 +12,8 @@ A library for styling your terminal in Motoko!
 
 Easy to use, expressive API:
 ```motoko
-import Writer from "mo:color/Writer";
-import TextStyle from "mo:color/TextStyle";
+import Writer "mo:color/Writer";
+import TextStyle "mo:color/TextStyle";
 
 let { backgroundColor; textColor } = TextStyle;
 
@@ -32,7 +32,7 @@ Chain multiple colors on the same line:
 ...
 import Debug "mo:base/Debug";
 
-Debug.log(
+Debug.print(
   writer
     .text("It's easy being green")
     .textColor(textColor.green)
