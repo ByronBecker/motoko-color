@@ -118,7 +118,11 @@ module {
 
       switch (Hex.decode(h)){
         case (#ok(bytes)){ 
-          ?(bytes[0], bytes[1], bytes[2]) 
+          if (bytes.size == 3){
+            ?(bytes[0], bytes[1], bytes[2]) 
+          }else{
+            null
+          };
         };
         case (_){ null };
       }
