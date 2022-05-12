@@ -139,6 +139,27 @@ run(suite("Writer composition",
         .underline(true)
         .read(),
       M.equals(T.text("\1b[38;2;20;40;60;48;2;180;200;220;1;3;4mevery rgb feature!\1b[0m"))
+    ),
+    test(
+      "hex styles are converted and applied expected",      
+      Writer()
+        .text("Adding Hex Support!")
+        .textColorHex("#14283C")
+        .backgroundColorHex("#B4C8DC")
+        .bold(true)
+        .italicize(true)
+        .underline(true)
+        .read(),
+      M.equals(T.text("\1b[38;2;20;40;60;48;2;180;200;220;1;3;4mAdding Hex Support!\1b[0m"))
+    ),
+    test(
+      "ignores hex style if it is invalid",      
+      Writer()
+        .text("wrong hex format!")
+        .textColorHex("#34D4AZ")
+        .backgroundColorHex("0x23FG34")
+        .read(),
+      M.equals(T.text("\1b[37mwrong hex format!\1b[0m"))
     )
   ]
 ));

@@ -2,8 +2,8 @@
 ///
 /// This module contains static text style constants which can be passed to 
 /// methods of Writer to customize text styling
-import HashMap "mo:base/HashMap";
 import Bool "mo:base/Bool";
+import HashMap "mo:base/HashMap";
 
 module TextStyle {
   /// Record of color name to ANSI SGR background color code

@@ -4,8 +4,8 @@
 /// customization of text styling in the terminal.
 ///
 /// ```motoko
-/// import Writer from "mo:color/Writer";
-/// import TextStyle from "mo:color/TextStyle";
+/// import Writer "mo:color/Writer";
+/// import TextStyle "mo:color/TextStyle";
 ///
 /// let { backgroundColor; textColor } = TextStyle;
 ///
@@ -23,6 +23,9 @@ import TextStyle "./TextStyle";
 import Debug "mo:base/Debug";
 import Nat8 "mo:base/Nat8";
 import Bool "mo:base/Bool";
+import Result "mo:base/Result";
+
+import Hex "mo:encoding/Hex";
 
 module {
   /// All of the text styles that can be manipulated
@@ -52,9 +55,13 @@ module {
   /// 
   /// `textColorRGB: (r: Nat8, g: Nat8, b: Nat8) -> TextStyleFunctor;`  
   /// 
+  /// `textColorHex: (hex: Text) -> TextStyleFunctor;`  
+  /// 
   /// `backgroundColor: (color: Text) -> TextStyleFunctor;`  
   /// 
   /// `backgroundColorRGB: (r: Nat8, g: Nat8, b: Nat8) -> TextStyleFunctor;`  
+  /// 
+  /// `backgroundColorHex: (hex: Text) -> TextStyleFunctor;`  
   /// 
   /// `text: (t: Text) -> TextStyleFunctor;`  
   /// 
@@ -77,8 +84,10 @@ module {
   public type TextStyleFunctor = {
     textColor: (color: Text) -> TextStyleFunctor;
     textColorRGB: (r: Nat8, g: Nat8, b: Nat8) -> TextStyleFunctor;
+    textColorHex: (hex: Text) -> TextStyleFunctor;
     backgroundColor: (color: Text) -> TextStyleFunctor;
     backgroundColorRGB: (r: Nat8, g: Nat8, b: Nat8) -> TextStyleFunctor;
+    backgroundColorHex: (hex: Text) -> TextStyleFunctor;
     text: (t: Text) -> TextStyleFunctor;
     bold: (isBold: Bool) -> TextStyleFunctor;
     italicize: (isItalicize: Bool) -> TextStyleFunctor;
@@ -108,6 +117,21 @@ module {
       # ";" # Nat8.toText(b); 
     };
 
+    func hexToRGB(hex: Text): ?(Nat8, Nat8, Nat8) {
+      let h = Text.trimStart(hex, #char '#');
+
+      switch (Hex.decode(h)){
+        case (#ok(bytes)){ 
+          if (bytes.size() == 3){
+            ?(bytes[0], bytes[1], bytes[2]) 
+          }else{
+            null
+          };
+        };
+        case (_){ null };
+      }
+    };
+
     object {
       let settings = newSettings;
 
@@ -133,6 +157,13 @@ module {
         })
       };
 
+      public func textColorHex(hex: Text): TextStyleFunctor { 
+        switch (hexToRGB(hex)){
+          case (?(r,g,b)){ textColorRGB(r, g, b) };
+          case (_){ functor(settings) }; // ignores method if hex is invalid
+        };
+      };
+
       public func backgroundColor(color: Text): TextStyleFunctor { 
         return functor({
           textColor = settings.textColor;
@@ -155,6 +186,13 @@ module {
           italicize = settings.italicize;
           underline = settings.underline;
         })
+      };
+
+      public func backgroundColorHex(hex: Text): TextStyleFunctor { 
+        switch (hexToRGB(hex)){
+          case (?(r,g,b)){ backgroundColorRGB(r, g, b) };
+          case (_){ functor(settings) }; 
+        };
       };
 
       public func bold(isBold: Bool): TextStyleFunctor {
