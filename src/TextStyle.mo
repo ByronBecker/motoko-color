@@ -54,31 +54,6 @@ module TextStyle {
     grey        = "38";
   };
 
-  /// Record of bright color name to ANSI SGR foreground color code
-  ///
-  /// Available Colors:
-  /// - black
-  /// - red
-  /// - green
-  /// - yellow
-  /// - blue
-  /// - purple
-  /// - lightblue
-  /// - white
-  /// - grey 
-
-  public let brightTextColor = {
-    black       = "90";
-    red         = "91";
-    green       = "92";
-    yellow      = "93";
-    blue        = "94";
-    purple      = "95";
-    lightblue   = "96";
-    white       = "97";
-    grey        = "98";
-  };
-
   public let foregroundRGBPrefix  = "38;2";
   public let backgroundRGBPrefix  = ";48;2";
   public let bold                 = ";1";
