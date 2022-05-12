@@ -80,8 +80,10 @@ module {
   public type TextStyleFunctor = {
     textColor: (color: Text) -> TextStyleFunctor;
     textColorRGB: (r: Nat8, g: Nat8, b: Nat8) -> TextStyleFunctor;
+    textColorHex: (hex: Text) -> TextStyleFunctor;
     backgroundColor: (color: Text) -> TextStyleFunctor;
     backgroundColorRGB: (r: Nat8, g: Nat8, b: Nat8) -> TextStyleFunctor;
+    backgroundColorHex: (hex: Text) -> TextStyleFunctor;
     text: (t: Text) -> TextStyleFunctor;
     bold: (isBold: Bool) -> TextStyleFunctor;
     italicize: (isItalicize: Bool) -> TextStyleFunctor;
